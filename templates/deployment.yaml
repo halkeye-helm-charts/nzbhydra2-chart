@@ -28,42 +28,37 @@ spec:
               value: {{ .Values.nzbhydra2.gid | quote }}
             - name: UID
               value: {{ .Values.nzbhydra2.uid | quote }}
-            - name: SERVER_MODE
-              value: {{ .Values.nzbhydra2.server_mode | quote }}
-            - name: PGADMIN_SETUP_EMAIL
-              value: {{ .Values.nzbhydra2.setup_email }}
-            - name: PGADMIN_PORT
-              value: {{ .Values.service.port | quote }}
-            - name: PGADMIN_SETUP_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "nzbhydra2.fullname" . }}
-                  key: setup_password
+            - name: UMASK
+              value: {{ .Values.nzbhydra2.umask | quote }}
           ports:
             - name: http
-              containerPort: 5050
+              containerPort: 5076
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /misc/ping
+              path: /
               port: http
           readinessProbe:
             httpGet:
-              path: /misc/ping
+              path: /
               port: http
           volumeMounts:
+          - name: nzbhydra2-config
+            mountPath: /config
           - name: nzbhydra2-data
             mountPath: /data
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      - name: nzbhydra2-data
+      - name: nzbhydra2-config
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: {{ template "nzbhydra2.fullname" . }}
+          claimName: {{ template "nzbhydra2.fullname" . }}-config
       {{- else }}
         emptyDir: {}
       {{- end }}
+      - name: nzbhydra2-data
+        emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

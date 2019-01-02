@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: chorss/docker-nzbhydra24
-  tag: 3.6
+  repository: binhex/arch-nzbhydra2
+  tag: 2.1.6-1-01
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -14,14 +14,12 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 5050
+  port: 5076
 
 nzbhydra2:
+  umask: 000
   uid: 1000
   gid: 1000
-  server_mode: true
-  setup_email: admin@mailinator.com
-  setup_password: password
 
 ingress:
   enabled: false
