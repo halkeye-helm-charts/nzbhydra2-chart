@@ -1,11 +1,10 @@
 apiVersion: v1
 appVersion: "2.1.6"
-description: pgAdmin is the most popular and feature rich Open Source administration and development platform for PostgreSQL, the most advanced Open Source database in the world.
+description: NZBHydra 2 is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as an indexer source for tools like Sonarr, Radarr or CouchPotato.
 name: nzbhydra2
 version: 0.1.1
 keywords:
   - nzbhydra2
-  - postgres
 home: https://www.nzbhydra2.org/
 maintainers:
   - name: Gavin Mogan
