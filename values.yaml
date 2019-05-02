@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: binhex/arch-nzbhydra2
-  tag: 2.5.5-1-01
+  tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
