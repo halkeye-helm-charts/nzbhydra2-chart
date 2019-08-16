@@ -4,10 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ template "nzbhydra2.fullname" . }}-config
   labels:
-    app: {{ template "nzbhydra2.name" . }}
-    chart: {{ template "nzbhydra2.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "nzbhydra2.name" . }}
+    helm.sh/chart: {{ include "nzbhydra2.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
   {{- with .Values.persistence.annotations  }}
   annotations:
 {{ toYaml . | indent 4 }}
