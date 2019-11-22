@@ -12,6 +12,9 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+# upgrade strategy type (e.g. Recreate or RollingUpdate)
+strategyType: Recreate
+
 service:
   type: ClusterIP
   port: 5076
