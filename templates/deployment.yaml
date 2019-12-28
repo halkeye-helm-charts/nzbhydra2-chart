@@ -25,14 +25,24 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
+      initContainers:
+        - name: init-chown-data
+          image: busybox:1.30.0
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            runAsUser: 0
+          command: ["chown", "-R", "{{ .Values.nzbhydra2.uid }}:{{ .Values.nzbhydra2.gid }}", "/config"]
+          volumeMounts:
+            - name: nzbhydra2-config
+              mountPath: /config
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: GID
+            - name: PGID
               value: {{ .Values.nzbhydra2.gid | quote }}
-            - name: UID
+            - name: PUID
               value: {{ .Values.nzbhydra2.uid | quote }}
             - name: UMASK
               value: {{ .Values.nzbhydra2.umask | quote }}
