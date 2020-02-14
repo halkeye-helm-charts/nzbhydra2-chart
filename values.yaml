@@ -69,3 +69,5 @@ persistence:
     - ReadWriteOnce
   size: 8Gi
 podAnnotations: {}
+
+deploymentAnnotations: {}
